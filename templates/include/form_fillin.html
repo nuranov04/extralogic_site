@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div style="margin-top:30px; margin-left:500px; margin-right:500px">
+        <div>
+            <div class="card text-white bg-primary mb-3" style=" center max-width: 18rem;">
+                <div class="card-header">create at | {{ data.create_at }}</div>
+                <div class="card-body">
+                    <h5 class="card-title">Title '{{ data.title }}'</h5>
+                    <div class="" style="margin-top:20px">
+                        <p class="card-text">{{ data.description }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% for question in questions %}
+        {% if question.type == 'textarea' %}
+        <div>
+            <div class="mb-3">
+                <label for="sad" class="form-label">{{question.question}}  {{ question.id }}</label>
+                <textarea name="{{ question.id }}" placeholder="textarea" class="form-control" id="sad" rows="3"></textarea>
+            </div>
+        </div>
+        {% elif question.type == 'input' %}
+        <div>
+            <a>{{ question.question }}  {{ question.id }}</a>
+        </div>
+        <div class="input-group flex-nowrap">
+            <input name="{{ question.id }}" style="max-width: 52.8rem;" type="text" class="form-control"
+                   placeholder="input"
+                   aria-label="Username"
+                   aria-describedby="addon-wrapping">
+        </div>
+        {% elif question.type == 'select' %}
+        <a> {{question.question}}  {{ question.id }}</a>
+        {% for select in question.select %}
+        <div class="input-group mb-3">
+          <div class="input-group-text">
+            <input name ='select' class="form-check-input mt-0" type="checkbox" value="{{ select.id }}" aria-label="Checkbox for following text input">
+          </div>
+            <a type="text" class="form-control">{{ select.select }}</a>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+
+        <div class="container">
+            <button style="margin-left:340px; margin-top:10px" class="btn btn-primary active" type="submit">Send
+            </button>
+        </div>
+
+    </div>
+</form>
+
+{% endblock %}

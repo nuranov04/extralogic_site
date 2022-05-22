@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+{% block content %}
+<div style="margin-top:30px; margin-left:20px; margin-right:20px">
+    <div class="card text-white bg-primary mb-3" style=" center max-width: 18rem;">
+        <div class="card-header">create at | {{ data.create_at }}</div>
+        <div class="card-body">
+            <h5 class="card-title">Title '{{ data.title }}'</h5>
+            <div class="" style="margin-top:20px">
+                <p class="card-text">{{ data.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container text-center mt-5">
+    <h1>
+        Итоги Теста
+    </h1>
+</div>
+<div class="container mt-5">
+
+{% for question in  questions %}
+    <div class="card text-white bg-dark mb-3 ms-3">
+        <div class="card-header text-center">question</div>
+        <div class="card-body">
+            <h5 class="card-title text-center">{{ question.question }}</h5>
+            <h5 class="card-title text-center">---------</h5>
+            {% if question.type == 'select' %}
+                    {% for select in selects %}
+                        <h5 class="card-title text-center">{{ select }}</h5>
+                    {% endfor %}
+            {% else %}
+                {% for answer in question.answer %}
+                <h5 class="card-title text-center">{{ answer.input }}</h5>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock %}
